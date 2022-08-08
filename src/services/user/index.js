@@ -30,7 +30,7 @@ const createUser = async (name, email, password, role) => {
 };
 
 const loginUser = async (email, password) => {
-    console.lol('url: ', `${userURL}/login`);
+    console.log('url: ', `${userURL}/login`);
 
     try {
         const loginUserRes = await axios({
