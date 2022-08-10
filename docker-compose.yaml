@@ -2,6 +2,7 @@ version: '3.8'
 services:
     client:
         build: ./
+        image: jbsdevden/mern-tms-client
         container_name: client
         ports:
             - '3000:3000'
