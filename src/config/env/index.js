@@ -1,4 +1,4 @@
-const NODE_ENV = process.env.REACT_APP_NODE_ENV;
+const NODE_ENV = 'development';
 
 let BE_URL = 'https://mern-tms-server.herokuapp.com';
 
