@@ -6,7 +6,7 @@ const useAppContext = () => {
 
     if (!context) {
         throw new Error(
-            'useAppContext must be used within an App Context Provider.'
+            'useAppContext must be used within an App Context Provider...'
         );
     }
 
