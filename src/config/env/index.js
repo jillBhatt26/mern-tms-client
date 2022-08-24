@@ -1,6 +1,6 @@
-const NODE_ENV = 'production';
+const NODE_ENV = process.env.REACT_APP_NODE_ENV;
 
-let BE_URL = 'http://159.65.145.66/api';
+let BE_URL = process.env.REACT_APP_BE_URL;
 
 if (NODE_ENV === 'development') {
     BE_URL = 'http://localhost:5000';

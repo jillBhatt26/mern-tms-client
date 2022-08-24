@@ -10,17 +10,35 @@ jobs:
     build:
         runs-on: self-hosted
 
+        env:
+            REACT_APP_NODE_ENV: ${{ secrets.REACT_APP_NODE_ENV }}
+            REACT_APP_BE_URL: ${{ secrets.REACT_APP_BE_URL }}
+
         strategy:
             matrix:
                 node-version: [16.x]
 
         steps:
             - uses: actions/checkout@v3
+
             - name: Use Node.js ${{ matrix.node-version }}
               uses: actions/setup-node@v3
               with:
                   node-version: ${{ matrix.node-version }}
                   cache: 'yarn'
-            - run: yarn install --immutable --immutable-cache --check-cache
-            - run: yarn run test
-            - run: yarn run build --if-present
+
+            - name: Generate env file
+              run: |
+                  touch .env
+                  echo REACT_APP_NODE_ENV = ${{ env.REACT_APP_NODE_ENV }} >> .env
+                  echo REACT_APP_BE_URL = ${{ env.REACT_APP_BE_URL }} >> .env
+                  cat .env
+
+            - name: Install dependencies
+              run: yarn install --immutable --immutable-cache --check-cache
+
+            - name: Test if present
+              run: npm run test --if-present
+
+            - name: Generate build
+              run: npm run build --if-present
