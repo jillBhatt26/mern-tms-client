@@ -1,0 +1,19 @@
+FROM node:16.16.0-alpine as react-prod-build
+
+WORKDIR /app
+
+COPY package.json ./
+COPY yarn.lock ./
+
+RUN yarn install
+
+COPY ./ ./
+
+EXPOSE 3000
+
+# NOTE: Use the run command to build the folder while building the image and not the container
+RUN npm run build 
+
+
+FROM nginx
+COPY --from=react-prod-build /app/build /usr/share/nginx/html
