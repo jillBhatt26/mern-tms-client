@@ -43,5 +43,5 @@ jobs:
             - name: Generate build
               run: npm run build --if-present
 
-            - name: Build the client production image and start containers
-              run: npm run compose:up:prod
+            - name: Containerize
+              run: npm run compose:up:prod --exit-code-from Containerize Containerize
