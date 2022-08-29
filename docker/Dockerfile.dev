@@ -2,12 +2,12 @@ FROM node:16.16.0-alpine
 
 WORKDIR /app
 
-COPY package.json ./
-COPY yarn.lock ./
+COPY ../package.json ./
+COPY ../yarn.lock ./
 
 RUN yarn install
 
-COPY ./ ./
+COPY ../ ./
 
 EXPOSE 3000
 

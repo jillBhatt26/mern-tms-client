@@ -1,7 +1,8 @@
 version: '3.8'
 services:
     client:
-        build:
+        # build: ./ # NOTE: Only works for Dockerfile
+        build: # NOTE: Works for files other than Dockerfile
             context: ./
             dockerfile: Dockerfile.dev
         image: jbsdevden/mern-tms-client
@@ -13,6 +14,8 @@ services:
             - /app/node_modules
         stdin_open: true
         tty: true
+        # environment
+        #     CHOKIDAR_USEPOLLING: 'true'
 
         env_file:
-            - ./.env
+            - ../.env

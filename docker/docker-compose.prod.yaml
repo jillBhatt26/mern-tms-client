@@ -2,12 +2,12 @@ version: '3.8'
 services:
     client:
         build:
-            context: ./
-            dockerfile: Dockerfile.prod
+            context: ../
+            dockerfile: ./docker/Dockerfile.prod
         image: jbsdevden/mern-tms-client
         container_name: client
         ports:
             - '3000:80'
 
         env_file:
-            - ./.env
+            - ../.env
