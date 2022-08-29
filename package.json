@@ -27,8 +27,8 @@
         "eject": "react-scripts eject",
         "compose:up": "docker-compose up",
         "compose:down": "docker-compose down --rmi all -v",
-        "compose:up:dev": "docker-compose -f docker-compose.yaml -f docker-compose.dev.yaml --build up",
-        "compose:up:prod": "docker-compose -f docker-compose.yaml -f docker-compose.prod.yaml --build up"
+        "compose:up:dev": "docker-compose -f docker-compose.yaml -f docker-compose.dev.yaml up --build",
+        "compose:up:prod": "docker-compose -f docker-compose.yaml -f docker-compose.prod.yaml up --build"
     },
     "eslintConfig": {
         "extends": [
