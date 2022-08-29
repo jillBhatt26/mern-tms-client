@@ -76,4 +76,4 @@ jobs:
                   cat .env
 
             - name: Containerize
-              run: npm run compose:up:prod -d
+              run: npm run compose:up:prod
