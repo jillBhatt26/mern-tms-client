@@ -49,6 +49,8 @@ jobs:
     release:
         runs-on: self-hosted
 
+        needs: build
+
         env:
             REACT_APP_NODE_ENV: ${{ secrets.REACT_APP_NODE_ENV }}
             REACT_APP_BE_URL: ${{ secrets.REACT_APP_BE_URL }}
@@ -74,4 +76,4 @@ jobs:
                   cat .env
 
             - name: Containerize
-              run: npm run compose:up:prod --exit-code-from "build"
+              run: npm run compose:up:prod exit 0
