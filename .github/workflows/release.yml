@@ -9,7 +9,7 @@ on:
 jobs:
     deploy:
         if: github.event.workflow_run.conclusion == 'success'
-        runs-on: self-hosted
+        runs-on: ubuntu-latest
 
         env:
             DH_USERNAME: ${{secrets.DOCKERHUB_USERNAME}}
@@ -17,6 +17,13 @@ jobs:
 
         steps:
             - uses: actions/checkout@v3
+
+            - name: Generate env file
+              run: |
+                  touch .env
+                  echo REACT_APP_NODE_ENV = ${{ env.REACT_APP_NODE_ENV }} >> .env
+                  echo REACT_APP_BE_URL = ${{ env.REACT_APP_BE_URL }} >> .env
+                  cat .env
 
             - name: Build the client production image
               run: npm run compose:up:prod
