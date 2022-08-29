@@ -14,7 +14,7 @@ services:
             - /app/node_modules
         stdin_open: true
         tty: true
-        # environment:
+        # environment
         #     CHOKIDAR_USEPOLLING: 'true'
 
         env_file:
