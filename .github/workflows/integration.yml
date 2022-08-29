@@ -44,4 +44,4 @@ jobs:
               run: npm run build --if-present
 
             - name: Containerize
-              run: npm run compose:up:prod --exit-code-from Containerize Containerize
+              run: npm run compose:up:prod --exit-code-from build build
