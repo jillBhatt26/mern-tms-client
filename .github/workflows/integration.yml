@@ -50,7 +50,7 @@ jobs:
             #   run: docker rmi $(docker images --filter "dangling=true" -q --no-trunc)
 
             - name: Remove old docker dangling images
-              run: docker image "jbsdevden/mern-tmsclient:${{ github.event.before }}"
+              run: docker rmi "jbsdevden/mern-tmsclient:${{ $(git rev-parse --short HEAD) }}"
 
             - name: Containerize
               run: npm run compose:up:prod
