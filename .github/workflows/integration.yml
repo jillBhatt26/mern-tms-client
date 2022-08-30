@@ -43,26 +43,8 @@ jobs:
             - name: Generate build
               run: npm run build --if-present
 
-            # - name: Remove old docker images
-            #   run: docker rmi -f $(docker images -aq)
-
-            # - name: Remove old docker dangling images
-            #   run: docker rmi $(docker images --filter "dangling=true" -q --no-trunc)
-
-            # - name: Retrieve version
-            #   id: version
-            #   run: |
-            #       prev_commit=$(git rev-parse --short HEAD~1);
-            #       echo "::set-output name=COMMIT::$(echo $prev_commit)"
-
             - name: Containerize
               run: npm run compose:up:prod
-
-            # - name: Remove old docker dangling images
-            #   run: docker rmi "jbsdevden/mern-tms-client:${{ steps.version.outputs.COMMIT }}"
-
-            # - name: Delete exited
-            #   run: docker rm -v $(docker ps -aq -f "status=exited")
 
             - name: Remove none tagged images
               run: docker images | grep "<none>" | awk '{print $3}' |xargs docker rmi -f
