@@ -46,8 +46,11 @@ jobs:
             # - name: Remove old docker images
             #   run: docker rmi -f $(docker images -aq)
 
+            # - name: Remove old docker dangling images
+            #   run: docker rmi $(docker images --filter "dangling=true" -q --no-trunc)
+
             - name: Remove old docker dangling images
-              run: docker rmi $(docker images --filter "dangling=true" -q --no-trunc)
+              run: docker image rm $(docker image ls -a -q) -f
 
             - name: Containerize
               run: npm run compose:up:prod
