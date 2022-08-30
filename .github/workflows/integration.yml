@@ -51,7 +51,7 @@ jobs:
 
             - name: Remove old docker dangling images
               env:
-                  COMMIT: $(git rev-parse --short HEAD~1)
+                  COMMIT: echo $(git rev-parse --short HEAD~1)
               run: docker rmi "jbsdevden/mern-tms-client:${{ env.COMMIT }}"
 
             - name: Containerize
