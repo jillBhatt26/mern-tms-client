@@ -40,7 +40,6 @@ const App = () => {
         <>
             <CssBaseline />
             <Nav />
-            <h1>Hello World!</h1>
             <Container>
                 <Routes>
                     <Route path="/login" element={<Login />} />
