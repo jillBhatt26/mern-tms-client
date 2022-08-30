@@ -49,10 +49,13 @@ jobs:
             # - name: Remove old docker dangling images
             #   run: docker rmi $(docker images --filter "dangling=true" -q --no-trunc)
 
+            - name: Retrieve version
+              id: version
+              run: |
+                  echo "::set-output name=commit::$(git rev-parse --short HEAD~1)"
+
             - name: Remove old docker dangling images
-              env:
-                  COMMIT: echo $(git rev-parse --short HEAD~1)
-              run: docker rmi "jbsdevden/mern-tms-client:${{ env.COMMIT }}"
+              run: docker rmi "jbsdevden/mern-tms-client:${{ steps.version.outputs.TAG_NAME }}"
 
             - name: Containerize
               run: npm run compose:up:prod
