@@ -53,7 +53,7 @@ jobs:
               id: version
               run: |
                   prev_commit=$(git rev-parse --short HEAD~1)
-                  echo "::set-output name=COMMIT::$(echo prev_commit)"
+                  echo "::set-output name=COMMIT::$(echo $prev_commit)"
 
             - name: Remove old docker dangling images
               run: docker rmi "jbsdevden/mern-tms-client:${{ steps.version.outputs.COMMIT }}"
