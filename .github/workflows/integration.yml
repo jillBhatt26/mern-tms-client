@@ -52,7 +52,7 @@ jobs:
             - name: Retrieve version
               id: version
               run: |
-                  echo "::set-output name=COMMIT::echo $(git rev-parse --short HEAD~1)"
+                  echo "::set-output name=COMMIT::$(echo git rev-parse --short HEAD~1)"
 
             - name: Remove old docker dangling images
               run: docker rmi "jbsdevden/mern-tms-client:${{ steps.version.outputs.COMMIT }}"
