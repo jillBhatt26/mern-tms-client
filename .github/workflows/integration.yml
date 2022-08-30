@@ -45,6 +45,3 @@ jobs:
 
             - name: Containerize
               run: npm run compose:up:prod
-
-            - name: Remove all previous containers
-              run: npm run compose:down
