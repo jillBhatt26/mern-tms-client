@@ -43,5 +43,8 @@ jobs:
             - name: Generate build
               run: npm run build --if-present
 
+            - name: Remove old docker images
+              run: docker rmi -f $(docker images -aq)
+
             - name: Containerize
               run: npm run compose:up:prod
