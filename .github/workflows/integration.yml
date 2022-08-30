@@ -62,7 +62,7 @@ jobs:
             #   run: docker rmi "jbsdevden/mern-tms-client:${{ steps.version.outputs.COMMIT }}"
 
             - name: Delete exited
-              run: docker rm $(docker ps -q -f status=exited); exit 0
+              run: docker rm -v $(docker ps -aq -f status=exited); exit 0
 
             - name: Remove none tagged images
               run: docker images | grep "<none>" | awk '{print $3}' |xargs docker rmi -f; exit 0
