@@ -49,8 +49,12 @@ jobs:
             # - name: Remove old docker dangling images
             #   run: docker rmi $(docker images --filter "dangling=true" -q --no-trunc)
 
+            - name: Set outputs
+              id: vars
+              run: echo "::set-output name=sha_short::$(git rev-parse --short HEAD~1)"
+
             - name: Remove old docker dangling images
-              run: docker rmi "jbsdevden/mern-tms-client:$(git rev-parse --short HEAD~1)"
+              run: docker rmi jbsdevden/mern-tms-client:${{ steps.vars.outputs.sha_short }}
 
             - name: Containerize
               run: npm run compose:up:prod
