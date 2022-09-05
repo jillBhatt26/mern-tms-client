@@ -2,6 +2,8 @@ server {
     listen       80;
     server_name  localhost;
 
+    include /etc/nginx/mime.types;
+
     location / {
         root   /usr/share/nginx/html;
         index  index.html index.htm;
