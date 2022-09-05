@@ -21,7 +21,7 @@ services:
         volumes:
             - ../nginx/nginx.conf:/etc/nginx/nginx.conf
         depends_on:
-            - server
+            - client
         expose:
             - 80
         ports:
