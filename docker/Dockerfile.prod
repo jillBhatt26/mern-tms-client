@@ -20,5 +20,5 @@ FROM nginx:alpine
 COPY /nginx/conf.d /etc/nginx/nginx.conf
 RUN rm -rf /usr/share/nginx/html/*
 COPY --from=react-prod-build /app/build /usr/share/nginx/html
-EXPOSE 3000 80
+EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]
