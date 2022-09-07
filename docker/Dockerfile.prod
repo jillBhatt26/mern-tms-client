@@ -11,7 +11,7 @@ COPY ./ ./
 
 # EXPOSE 3000
 
-# NOTE: Use the run command to build the folder while building the image and not the container
+# NOTE: Use the run  command to build the folder while building the image and not the container
 RUN npm run build
 
 
