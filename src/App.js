@@ -41,7 +41,6 @@ const App = () => {
             <CssBaseline />
             <Nav />
             <Container>
-                <h1>Hello World!!</h1>
                 <Routes>
                     <Route path="/login" element={<Login />} />
                     <Route path="/" element={<Dashboard />} />
