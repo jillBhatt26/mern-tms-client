@@ -1,0 +1,89 @@
+name: Production
+
+on:
+    push:
+        branches: ['main']
+
+jobs:
+    release:
+        runs-on: ubuntu-latest
+
+        env:
+            DH_USERNAME: ${{secrets.DOCKERHUB_USERNAME}}
+            DH_PASSWORD: ${{secrets.D_HUB_MERN_TMS_CLIENT_AT}}
+            REACT_APP_NODE_ENV: ${{ secrets.REACT_APP_NODE_ENV }}
+            REACT_APP_BE_URL: ${{ secrets.REACT_APP_BE_URL }}
+
+        steps:
+            - uses: actions/checkout@v3
+
+            - name: Generate env file
+              run: |
+                  touch .env
+                  echo REACT_APP_NODE_ENV = ${{ env.REACT_APP_NODE_ENV }} >> .env
+                  echo REACT_APP_BE_URL = ${{ env.REACT_APP_BE_URL }} >> .env
+                  cat .env
+
+            - name: Build the images using the compose file
+              run: yarn run compose:build:prod
+
+            - name: Login to Docker Hub
+              uses: docker/login-action@v1
+              with:
+                  username: ${{env.DH_USERNAME}}
+                  password: ${{env.D_HUB_MERN_TMS_CLIENT_AT}}
+
+            - name: Push the images to docker hub
+              run: yarn run compose:push
+
+    deploy:
+        runs-on: self-hosted
+
+        needs: release
+
+        strategy:
+            matrix:
+                node-version: [16.x]
+
+        env:
+            DH_USERNAME: ${{secrets.DOCKERHUB_USERNAME}}
+            DH_PASSWORD: ${{secrets.D_HUB_MERN_TMS_CLIENT_AT}}
+            REACT_APP_NODE_ENV: ${{ secrets.REACT_APP_NODE_ENV }}
+            REACT_APP_BE_URL: ${{ secrets.REACT_APP_BE_URL }}
+
+        steps:
+            - uses: actions/checkout@v3
+
+            - name: Use Node.js ${{ matrix.node-version }}
+              uses: actions/setup-node@v3
+              with:
+                  node-version: ${{ matrix.node-version }}
+                  cache: 'yarn'
+
+            - name: Install dependencies
+              run: yarn install --immutable --immutable-cache --check-cache
+
+            - name: Run the tests if provided
+              run: npm run test --if-present
+
+            - name: Generate build
+              run: npm run build --if-present
+
+            - name: Generate env file
+              run: |
+                  touch .env
+                  echo REACT_APP_NODE_ENV = ${{ env.REACT_APP_NODE_ENV }} >> .env
+                  echo REACT_APP_BE_URL = ${{ env.REACT_APP_BE_URL }} >> .env
+                  cat .env
+
+            - name: Pull the server service from docker hub
+              run: npm run compose:pull
+
+            - name: Build the production server image and start the container
+              run: npm run compose:up:prod
+
+            - name: Remove all images that is not being used by any running container
+              run: docker image prune -a -f
+
+            - name: Remove none tagged images
+              run: if [ ! -z "$(docker images --filter dangling=true -a -q --no-trunc)" ]; then docker rmi $(docker images --filter dangling=true -a -q --no-trunc) -f; else echo "No <none> images found"; fi
