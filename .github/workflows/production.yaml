@@ -31,7 +31,7 @@ jobs:
               uses: docker/login-action@v1
               with:
                   username: ${{env.DH_USERNAME}}
-                  password: ${{env.D_HUB_MERN_TMS_CLIENT_AT}}
+                  password: ${{env.DH_PASSWORD}}
 
             - name: Push the images to docker hub
               run: yarn run compose:push
