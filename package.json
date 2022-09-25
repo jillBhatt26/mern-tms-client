@@ -31,7 +31,7 @@
         "compose:up:prod": "GITHUB_SHA=$(git rev-parse --short HEAD) docker-compose -f ./docker/docker-compose.prod.yaml up --build -d",
         "compose:build:prod": "GITHUB_SHA=$(git rev-parse --short HEAD) docker-compose -f ./docker/docker-compose.prod.yaml build",
         "compose:push": "GITHUB_SHA=$(git rev-parse --short HEAD) docker-compose -f ./docker/docker-compose.prod.yaml push",
-        "compose:pull": "GITHUB_SHA=$(git rev-parse --short HEAD) docker-compose -f ./docker/docker-compose.prod.yaml pull server"
+        "compose:pull": "GITHUB_SHA=$(git rev-parse --short HEAD) docker-compose -f ./docker/docker-compose.prod.yaml pull client"
     },
     "eslintConfig": {
         "extends": [
