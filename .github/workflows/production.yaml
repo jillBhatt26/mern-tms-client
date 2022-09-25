@@ -60,14 +60,14 @@ jobs:
                   node-version: ${{ matrix.node-version }}
                   cache: 'yarn'
 
-            - name: Install dependencies
-              run: yarn install --immutable --immutable-cache --check-cache
+            # - name: Install dependencies
+            #   run: yarn install --immutable --immutable-cache --check-cache
 
-            - name: Run the tests if provided
-              run: npm run test --if-present
+            # - name: Run the tests if provided
+            #   run: npm run test --if-present
 
-            - name: Generate build
-              run: npm run build --if-present
+            # - name: Generate build
+            #   run: npm run build --if-present
 
             - name: Generate env file
               run: |
